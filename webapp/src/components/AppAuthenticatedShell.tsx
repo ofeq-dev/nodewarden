@@ -1,4 +1,4 @@
-import { ArrowUpDown, ChevronDown, Clock3, Cloud, FileClock, Folder as FolderIcon, KeyRound, Lock, LogOut, MonitorSmartphone, Send as SendIcon, Settings as SettingsIcon, ShieldCheck, ShieldUser, Sparkles, Users } from 'lucide-preact';
+import { ChevronDown, Clock3, Folder as FolderIcon, KeyRound, Lock, LogOut, Send as SendIcon, Settings as SettingsIcon, ShieldUser, Sparkles } from 'lucide-preact';
 import type { ComponentChildren } from 'preact';
 import { useState } from 'preact/hooks';
 import { Link } from 'wouter';
@@ -8,6 +8,7 @@ import ThemeSwitch from '@/components/ThemeSwitch';
 import type { AppMainRoutesProps } from '@/components/AppMainRoutes';
 import { t } from '@/lib/i18n';
 import type { Profile } from '@/lib/types';
+import { APP_NAME } from '@shared/app-version';
 
 interface AppAuthenticatedShellProps {
   profile: Profile | null;
@@ -172,8 +173,11 @@ export default function AppAuthenticatedShell(props: AppAuthenticatedShellProps)
       <div className="app-shell">
         <header className="topbar">
           <div className="brand">
-            <img src="/nodewarden-logo.svg" alt="NodeWarden logo" className="brand-logo" />
-            <span className="brand-wordmark" role="img" aria-label="NodeWarden" />
+            <span className="brand-mark" aria-hidden="true">
+              <KeyRound size={16} />
+            </span>
+            <span className="brand-name">{APP_NAME}</span>
+            <span className="topbar-context">{props.currentPageTitle}</span>
             <span className="mobile-page-title">{props.currentPageTitle}</span>
           </div>
           <div className="topbar-actions">

@@ -7,7 +7,6 @@ import type {
   WebDavBackupDestination,
 } from '@/lib/api/backup';
 import { COMMON_TIME_ZONES, getDestinationTypeLabel } from '@/lib/backup-center';
-import type { RecommendedProvider } from '@/lib/backup-recommendations';
 import { RemoteBackupBrowser } from './RemoteBackupBrowser';
 import { t } from '@/lib/i18n';
 import { BackupIncludeAttachmentsField } from './BackupIncludeAttachmentsField';
@@ -15,7 +14,6 @@ import { BackupIncludeAttachmentsField } from './BackupIncludeAttachmentsField';
 const INTERVAL_HOUR_PRESETS = [1, 6, 12, 24];
 
 interface BackupDestinationDetailProps {
-  selectedRecommendedProvider: RecommendedProvider | null;
   selectedDestination: BackupDestinationRecord | null;
   selectedDestinationIsSaved: boolean;
   canRunSelectedDestination: boolean;
@@ -47,187 +45,12 @@ interface BackupDestinationDetailProps {
   onChangeRemoteBrowserPage: (page: number) => void;
 }
 
-function renderRecommendedProviderDetails(provider: RecommendedProvider) {
-  switch (provider.id) {
-    case 'koofr':
-      return (
-        <>
-          <div className="backup-recommendation-steps">
-            <div className="backup-recommendation-step">
-              <strong>1.</strong> {t('txt_backup_recommend_koofr_step_2_prefix')}{' '}
-              <a href={provider.passwordUrl} target="_blank" rel="noreferrer">{t('txt_backup_recommend_koofr_password_link')}</a>
-              {t('txt_backup_recommend_koofr_step_2_suffix')}
-            </div>
-            <div className="backup-recommendation-step">
-              <strong>2.</strong> {t('txt_backup_recommend_koofr_step_3')}
-            </div>
-            <div className="backup-recommendation-step">
-              <strong>3.</strong> {t('txt_backup_recommend_koofr_step_4')}
-            </div>
-            <div className="backup-recommendation-step">
-              <strong>4.</strong> {t('txt_backup_recommend_koofr_step_5_prefix')}{' '}
-              <a href={provider.storageUrl} target="_blank" rel="noreferrer">{t('txt_backup_recommend_koofr_storage_link')}</a>
-              {t('txt_backup_recommend_koofr_step_5_suffix')}
-            </div>
-          </div>
-          <div className="backup-recommendation-inline-note">{t('txt_backup_recommend_koofr_dav_intro')}</div>
-          <div className="backup-recommendation-dav-list">
-            <div className="backup-recommendation-dav-item">
-              <strong>{t('txt_backup_recommend_koofr_dav_self')}</strong>
-              <code>https://app.koofr.net/dav/Koofr</code>
-            </div>
-            <div className="backup-recommendation-dav-item">
-              <strong>Google Drive</strong>
-              <code>https://app.koofr.net/dav/Google Drive</code>
-            </div>
-            <div className="backup-recommendation-dav-item">
-              <strong>OneDrive</strong>
-              <code>https://app.koofr.net/dav/OneDrive</code>
-            </div>
-            <div className="backup-recommendation-dav-item">
-              <strong>Dropbox</strong>
-              <code>https://app.koofr.net/dav/Dropbox</code>
-            </div>
-          </div>
-        </>
-      );
-    case 'pcloud':
-      return (
-        <div className="backup-recommendation-steps">
-          <div className="backup-recommendation-step">
-            <strong>1.</strong> {t('txt_backup_recommend_pcloud_step_2')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>2.</strong> {t('txt_backup_recommend_pcloud_step_3')}
-          </div>
-        </div>
-      );
-    case 'infinicloud':
-      return (
-        <div className="backup-recommendation-steps">
-          <div className="backup-recommendation-step">
-            <strong>1.</strong> {t('txt_backup_recommend_infinicloud_step_2_prefix')}{' '}
-            <a href="https://infini-cloud.net/en/modules/mypage/usage/" target="_blank" rel="noreferrer">My Page</a>
-            {t('txt_backup_recommend_infinicloud_step_2_suffix')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>2.</strong> {t('txt_backup_recommend_infinicloud_step_3')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>3.</strong> {t('txt_backup_recommend_infinicloud_step_4')}
-          </div>
-        </div>
-      );
-    case 'backblaze-b2':
-      return (
-        <div className="backup-recommendation-steps">
-          <div className="backup-recommendation-step">
-            <strong>1.</strong> {t('txt_backup_recommend_backblaze_step_2_prefix')}{' '}
-            <a href={provider.bucketsUrl} target="_blank" rel="noreferrer">Buckets</a>
-            {t('txt_backup_recommend_backblaze_step_2_suffix')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>2.</strong> {t('txt_backup_recommend_backblaze_step_3')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>3.</strong> {t('txt_backup_recommend_backblaze_step_4_prefix')}{' '}
-            <a href={provider.applicationKeysUrl} target="_blank" rel="noreferrer">Application Keys</a>
-            {t('txt_backup_recommend_backblaze_step_4_suffix')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>4.</strong> {t('txt_backup_recommend_backblaze_step_5')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>5.</strong> {t('txt_backup_recommend_s3_path_prefix_step')}
-          </div>
-        </div>
-      );
-    case 'cloudflare-r2':
-      return (
-        <div className="backup-recommendation-steps">
-          <div className="backup-recommendation-step">
-            <strong>1.</strong> {t('txt_backup_recommend_cloudflare_r2_step_1_prefix')}{' '}
-            <a href={provider.bucketUrl} target="_blank" rel="noreferrer">{t('txt_backup_recommend_cloudflare_r2_bucket_link')}</a>
-            {t('txt_backup_recommend_cloudflare_r2_step_1_suffix')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>2.</strong> {t('txt_backup_recommend_cloudflare_r2_step_2_prefix')}{' '}
-            <a href={provider.apiTokenUrl} target="_blank" rel="noreferrer">{t('txt_backup_recommend_cloudflare_r2_api_link')}</a>
-            {t('txt_backup_recommend_cloudflare_r2_step_2_suffix')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>3.</strong> {t('txt_backup_recommend_cloudflare_r2_step_3')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>4.</strong> {t('txt_backup_recommend_cloudflare_r2_step_4')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>5.</strong> {t('txt_backup_recommend_cloudflare_r2_step_5')}
-          </div>
-        </div>
-      );
-    case 'tigris':
-      return (
-        <div className="backup-recommendation-steps">
-          <div className="backup-recommendation-step">
-            <strong>1.</strong> {t('txt_backup_recommend_tigris_step_2_prefix')}{' '}
-            <a href={provider.bucketUrl} target="_blank" rel="noreferrer">Create Bucket</a>
-            {t('txt_backup_recommend_tigris_step_2_suffix')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>2.</strong> {t('txt_backup_recommend_tigris_step_3_prefix')}{' '}
-            <a href={provider.accessKeyUrl} target="_blank" rel="noreferrer">{t('txt_backup_recommend_tigris_access_key_link')}</a>
-            {t('txt_backup_recommend_tigris_step_3_suffix')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>3.</strong> {t('txt_backup_recommend_tigris_step_4')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>4.</strong> {t('txt_backup_recommend_tigris_step_5')}
-          </div>
-          <div className="backup-recommendation-step">
-            <strong>5.</strong> {t('txt_backup_recommend_s3_path_prefix_step')}
-          </div>
-        </div>
-      );
-  }
-}
-
 export function BackupDestinationDetail(props: BackupDestinationDetailProps) {
   const timeZones = Array.from(new Set([
     ...COMMON_TIME_ZONES,
     ...props.availableTimeZones,
   ]));
   const selectedIntervalHours = props.selectedDestination?.schedule.intervalHours ?? 24;
-
-  if (props.selectedRecommendedProvider) {
-    return (
-      <section className="backup-detail-panel">
-        <div className="backup-recommendation-card">
-          <div className="backup-recommendation-header">
-            <div>
-              <strong>{props.selectedRecommendedProvider.name}</strong>
-              <div className="backup-inline-note">
-                {props.selectedRecommendedProvider.id === 'infinicloud' ? t('txt_backup_recommend_infinicloud_summary')
-                  : props.selectedRecommendedProvider.id === 'koofr' ? t('txt_backup_recommend_koofr_summary')
-                    : props.selectedRecommendedProvider.id === 'backblaze-b2' ? t('txt_backup_recommend_backblaze_summary')
-                      : props.selectedRecommendedProvider.id === 'cloudflare-r2' ? t('txt_backup_recommend_cloudflare_r2_summary')
-                        : props.selectedRecommendedProvider.id === 'tigris' ? t('txt_backup_recommend_tigris_summary')
-                    : t('txt_backup_recommend_pcloud_summary')}
-              </div>
-            </div>
-            <span className="backup-destination-type">{props.selectedRecommendedProvider.capacity}</span>
-          </div>
-          <div className="backup-recommendation-actions">
-            <a className="btn btn-primary small" href={props.selectedRecommendedProvider.signupUrl} target="_blank" rel="noreferrer">
-              {props.selectedRecommendedProvider.hasAffiliateLink ? t('txt_backup_recommend_open_signup_aff') : t('txt_backup_recommend_open_signup')}
-            </a>
-          </div>
-          {renderRecommendedProviderDetails(props.selectedRecommendedProvider)}
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="backup-detail-panel">
@@ -453,7 +276,7 @@ export function BackupDestinationDetail(props: BackupDestinationDetailProps) {
                   className="input"
                   value={(props.selectedDestination.destination as WebDavBackupDestination).remotePath}
                   disabled={props.loadingSettings || props.disableWhileBusy}
-                  placeholder="nodewarden"
+                  placeholder="vault"
                   onInput={(event) => props.onUpdateDestination((destination) => ({
                     ...destination,
                     destination: {

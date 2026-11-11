@@ -11,7 +11,7 @@
 .list-panel,
 .card,
 .detail-col {
-  @apply rounded-2xl border bg-panel shadow-soft;
+  @apply rounded-[8px] border bg-panel shadow-soft;
   border-color: var(--line);
 }
 
@@ -20,16 +20,16 @@
 }
 
 .sidebar-block {
-  @apply mb-2 rounded-2xl border bg-panel p-3;
+  @apply mb-2 rounded-[8px] border bg-panel p-3;
   border-color: var(--line);
 }
 
 .sidebar-title {
   @apply mb-2;
-  font-size: var(--font-xs);
-  font-weight: 700;
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
   line-height: var(--leading-tight);
 }
@@ -55,10 +55,10 @@
 }
 
 .search-input {
-  @apply h-12 w-full rounded-xl border px-3.5 py-2.5 text-base text-ink outline-hidden transition;
+  @apply h-10 w-full rounded-[6px] border px-3 py-2 text-base text-ink outline-hidden transition;
   background: var(--panel);
-  border-color: rgba(74, 103, 150, 0.34);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  border-color: var(--line);
+  box-shadow: none;
 }
 
 .search-input-wrap {
@@ -66,9 +66,9 @@
 }
 
 .search-input:focus {
-  border-color: rgba(43, 102, 217, 0.6);
-  background-color: #fbfdff;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--line));
+  background-color: var(--panel);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 12%, transparent);
 }
 
 .search-input-wrap .search-input {
@@ -76,23 +76,23 @@
 }
 
 .search-clear-btn {
-  @apply absolute right-[9px] top-1/2 inline-flex h-[22px] w-[22px] cursor-pointer items-center justify-center rounded-full border-0;
+  @apply absolute right-[9px] top-1/2 inline-flex h-[22px] w-[22px] cursor-pointer items-center justify-center rounded-[4px] border-0;
   border: none;
-  background: rgba(148, 163, 184, 0.18);
+  background: var(--panel-muted);
   color: var(--muted);
   transform: translateY(-50%);
-  transition: background-color var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft), transform var(--dur-fast) var(--ease-out-soft);
+  transition: background-color var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft);
 }
 
 .search-clear-btn:hover {
-  background: rgba(59, 130, 246, 0.18);
-  color: var(--brand);
-  transform: translateY(-50%) scale(1.04);
+  background: var(--panel-subtle);
+  color: var(--text);
+  transform: translateY(-50%);
 }
 
 .search-clear-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+  outline: 2px solid color-mix(in srgb, var(--primary) 55%, transparent);
+  outline-offset: 1px;
 }
 
 .tree-btn {
@@ -107,12 +107,12 @@
 }
 
 .tree-btn:hover {
-  background: rgba(37, 99, 235, 0.05);
+  background: var(--panel-subtle);
   color: var(--text);
 }
 
 .tree-btn.active {
-  background: rgba(37, 99, 235, 0.09);
+  background: color-mix(in srgb, var(--primary) 8%, var(--panel));
   color: var(--primary-strong);
   font-weight: 600;
 }
@@ -136,7 +136,7 @@
 .folder-delete-btn {
   @apply inline-flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-md border-0 bg-transparent p-0;
   border: none;
-  color: #64748b;
+  color: var(--muted);
   transition:
     color var(--dur-fast) var(--ease-smooth),
     background-color var(--dur-fast) var(--ease-smooth),
@@ -144,20 +144,20 @@
 }
 
 .folder-delete-btn:hover {
-  color: #b91c1c;
-  background: #fee2e2;
-  transform: scale(1.06);
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, var(--panel));
+  transform: none;
 }
 
 .folder-edit-btn:hover {
-  color: #1d4ed8;
-  background: #dbeafe;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, var(--panel));
 }
 
 .folder-sort-btn {
   @apply inline-flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-md border-0 bg-transparent p-0;
   border: none;
-  color: #64748b;
+  color: var(--muted);
   transition:
     color var(--dur-fast) var(--ease-smooth),
     background-color var(--dur-fast) var(--ease-smooth),
@@ -166,13 +166,13 @@
 
 .folder-sort-btn:hover {
   color: var(--primary-hover);
-  background: #dbeafe;
-  transform: scale(1.06);
+  background: color-mix(in srgb, var(--primary) 10%, var(--panel));
+  transform: none;
 }
 
 .folder-sort-btn.active {
-  color: #175ddc;
-  background: #e9f1ff;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, var(--panel));
 }
 
 .list-col {
@@ -193,11 +193,11 @@
 }
 
 .toolbar .btn.small {
-  @apply h-[32px] rounded-full text-xs;
+  @apply h-[32px] rounded-[4px] text-xs;
 }
 
 .duplicate-mode-select {
-  @apply h-8 min-w-[150px] rounded-full py-0 pl-3 pr-6 text-xs;
+  @apply h-8 min-w-[150px] rounded-[4px] py-0 pl-3 pr-6 text-xs;
   border-color: rgba(74, 103, 150, 0.26);
   box-shadow: none;
   line-height: 32px;
@@ -297,14 +297,14 @@ select.input.duplicate-mode-toolbar-select {
 
 .mobile-vault-filter-trigger:hover,
 .mobile-vault-filter-trigger.active {
-  border-color: rgba(43, 102, 217, 0.46);
-  background: #f8fbff;
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--line));
+  background: color-mix(in srgb, var(--primary) 6%, var(--panel));
   color: var(--primary-strong);
 }
 
 .mobile-vault-filter-trigger:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 12%, transparent);
 }
 
 .mobile-vault-filter-trigger-icon,
@@ -371,13 +371,13 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .sort-trigger.active {
-  background: #e9f1ff;
-  border-color: #a9c2ee;
-  color: #175ddc;
+  background: color-mix(in srgb, var(--primary) 10%, var(--panel));
+  border-color: color-mix(in srgb, var(--primary) 30%, var(--line));
+  color: var(--primary);
 }
 
 .sort-menu {
-  @apply absolute right-0 z-30 min-w-[156px] rounded-2xl border p-1.5;
+  @apply absolute right-0 z-30 min-w-[156px] rounded-[8px] border p-1.5;
   top: calc(100% + 6px);
   background: var(--panel);
   border-color: var(--line);
@@ -389,7 +389,7 @@ select.input.duplicate-mode-toolbar-select {
 .sort-menu-item {
   @apply flex w-full cursor-pointer items-center justify-between gap-2.5 rounded-[10px] border-0 bg-transparent px-2.5 py-[9px] text-left text-[13px];
   border: none;
-  color: #0f172a;
+  color: var(--text);
   transition:
     background-color var(--dur-fast) var(--ease-smooth),
     color var(--dur-fast) var(--ease-smooth),
@@ -397,13 +397,13 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .sort-menu-item:hover {
-  background: #f2f7ff;
-  transform: translateX(2px);
+  background: var(--panel-subtle);
+  transform: none;
 }
 
 .sort-menu-item.active {
-  @apply font-bold;
-  background: rgba(37, 99, 235, 0.1);
+  @apply font-semibold;
+  background: color-mix(in srgb, var(--primary) 8%, var(--panel));
   color: var(--primary-strong);
 }
 
@@ -443,8 +443,8 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .list-item {
-  @apply relative mb-2 flex min-h-[66px] w-full cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl border px-3 py-2.5 transition;
-  background: rgba(249, 251, 255, 0.9);
+  @apply relative mb-2 flex min-h-[66px] w-full cursor-pointer items-center gap-2.5 overflow-hidden rounded-[6px] border px-3 py-2.5 transition;
+  background: var(--panel);
   border-color: var(--line);
   contain: paint;
   overflow-anchor: none;
@@ -458,13 +458,7 @@ select.input.duplicate-mode-toolbar-select {
 .list-item::before {
   content: '';
   @apply absolute inset-0 opacity-0;
-  background:
-    linear-gradient(90deg, rgba(43, 102, 217, 0.06), transparent 24%, transparent 76%, rgba(14, 165, 233, 0.05)),
-    radial-gradient(circle at 18px 50%, rgba(255, 255, 255, 0.28), transparent 44%);
-  transition:
-    opacity var(--dur-fast) var(--ease-smooth),
-    transform 320ms var(--ease-out-soft);
-  transform: translateX(-8px);
+  background: transparent;
   pointer-events: none;
 }
 
@@ -530,9 +524,9 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .list-item:hover {
-  background: #fcfdff;
-  border-color: rgba(37, 99, 235, 0.18);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(37, 99, 235, 0.04);
+  background: var(--panel-subtle);
+  border-color: color-mix(in srgb, var(--muted) 32%, var(--line));
+  box-shadow: none;
 }
 
 .list-item.duplicate-group-item:hover {
@@ -546,9 +540,9 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .list-item.active {
-  background: rgba(37, 99, 235, 0.1);
-  border-color: rgba(43, 102, 217, 0.26);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  background: color-mix(in srgb, var(--primary) 7%, var(--panel));
+  border-color: color-mix(in srgb, var(--primary) 30%, var(--line));
+  box-shadow: inset 2px 0 0 var(--primary);
 }
 
 .list-item.duplicate-group-item.active {
@@ -586,12 +580,12 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .card-brand-icon {
-  @apply inline-grid h-6 w-9 shrink-0 place-items-center rounded-sm border text-[7px] font-black uppercase leading-none;
+  @apply inline-grid h-6 w-9 shrink-0 place-items-center rounded-sm border text-[7px] font-semibold uppercase leading-none;
   letter-spacing: 0;
-  color: #1e3a8a;
-  background: linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
-  border-color: rgba(96, 125, 169, 0.34);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+  color: var(--primary-strong);
+  background: var(--panel-subtle);
+  border-color: var(--line);
+  box-shadow: none;
 }
 
 .card-brand-icon span {
@@ -612,7 +606,7 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .card-brand-visa {
-  color: #1a4db3;
+  color: var(--primary);
 }
 
 .card-brand-mastercard {
@@ -641,11 +635,11 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .card-brand-jcb {
-  color: #0f766e;
+  color: var(--primary);
 }
 
 .card-brand-maestro {
-  color: #1e40af;
+  color: var(--primary-hover);
   background:
     radial-gradient(circle at 38% 50%, rgba(0, 85, 164, 0.86) 0 24%, transparent 25%),
     radial-gradient(circle at 62% 50%, rgba(237, 28, 36, 0.82) 0 24%, transparent 25%),
@@ -653,11 +647,11 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .card-brand-unionpay {
-  color: #0f766e;
+  color: var(--primary);
 }
 
 .card-brand-rupay {
-  color: #1e3a8a;
+  color: var(--primary-strong);
 }
 
 .card-brand-select-row {
@@ -710,7 +704,7 @@ select.input.duplicate-mode-toolbar-select {
 
 .list-icon-fallback {
   @apply grid place-items-center;
-  color: #64748b;
+  color: var(--muted);
   transition:
     color var(--dur-fast) var(--ease-smooth),
     opacity var(--dur-fast) var(--ease-smooth),
@@ -742,9 +736,9 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .list-badge {
-  @apply inline-flex shrink-0 items-center justify-center rounded-full px-1.5 py-0.5 text-[11px] font-bold leading-none;
-  color: #475569;
-  background: #e8eef8;
+  @apply inline-flex shrink-0 items-center justify-center rounded-[4px] px-1.5 py-0.5 text-[11px] font-semibold leading-none;
+  color: var(--muted-strong);
+  background: var(--panel-muted);
 }
 
 .list-badge.danger {
@@ -754,35 +748,35 @@ select.input.duplicate-mode-toolbar-select {
 
 .list-sub {
   @apply mt-0.5 block overflow-hidden text-ellipsis whitespace-nowrap text-[13px];
-  color: #5f6f85;
+  color: var(--muted);
   transition: color var(--dur-fast) var(--ease-smooth), transform 220ms var(--ease-out-soft), opacity var(--dur-fast) var(--ease-smooth);
 }
 
 .list-item:hover .list-icon-wrap,
 .list-item.active .list-icon-wrap {
-  transform: translateX(1px) scale(1.04);
+  transform: none;
 }
 
 .list-item:hover .list-icon-fallback,
 .list-item.active .list-icon-fallback {
   color: var(--primary-strong);
-  transform: scale(1.04);
+  transform: none;
 }
 
 .list-item:hover .list-text,
 .list-item.active .list-text {
-  transform: translateX(1px);
+  transform: none;
 }
 
 .list-item:hover .list-title,
 .list-item.active .list-title {
-  letter-spacing: var(--tracking-tighter);
+  letter-spacing: 0;
 }
 
 .list-item:hover .list-sub,
 .list-item.active .list-sub {
-  transform: translateX(1px);
-  opacity: 0.92;
+  transform: none;
+  opacity: 1;
 }
 
 .detail-col {
@@ -837,7 +831,7 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .password-history-link {
-  @apply mt-2.5 cursor-pointer p-0 font-bold;
+  @apply mt-2.5 cursor-pointer p-0 font-semibold;
   border: none;
   background: transparent;
   color: var(--primary);
@@ -859,7 +853,7 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .kv-line > span {
-  color: #64748b;
+  color: var(--muted);
 }
 
 .kv-row {
@@ -931,7 +925,7 @@ select.input.duplicate-mode-toolbar-select {
 
 .kv-label {
   @apply min-w-0 overflow-hidden text-ellipsis whitespace-nowrap;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .kv-main {
@@ -964,7 +958,7 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .totp-ring-track {
-  stroke: #d9e2ef;
+  stroke: var(--line);
 }
 
 .totp-ring-progress {
@@ -974,8 +968,8 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .totp-timer-value {
-  @apply absolute inset-0 grid place-items-center text-[11px] font-bold;
-  color: #0f172a;
+  @apply absolute inset-0 grid place-items-center text-[11px] font-semibold;
+  color: var(--text);
 }
 
 .dialog-mask.totp-scan-mask {
@@ -984,11 +978,11 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .dialog-card.totp-scan-dialog {
-  @apply flex w-full max-w-[560px] flex-col overflow-hidden rounded-3xl border-0 p-0 text-left;
+  @apply flex w-full max-w-[560px] flex-col overflow-hidden rounded-[10px] border-0 p-0 text-left;
   height: min(720px, calc(100dvh - 48px));
   max-height: calc(100dvh - 48px);
-  background: #0f172a;
-  color: #f8fafc;
+  background: var(--text);
+  color: var(--panel-subtle);
   box-shadow: 0 28px 80px rgba(2, 6, 23, 0.45);
 }
 
@@ -999,7 +993,7 @@ select.input.duplicate-mode-toolbar-select {
 
 .totp-scan-head .dialog-title {
   @apply m-0 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-xl;
-  color: #f8fafc;
+  color: var(--panel-subtle);
 }
 
 .totp-scan-close {
@@ -1008,12 +1002,12 @@ select.input.duplicate-mode-toolbar-select {
 
 .totp-scan-close:hover {
   background: rgba(255, 255, 255, 0.18);
-  transform: scale(1.04);
+  transform: none;
 }
 
 .totp-scan-frame {
   @apply relative min-h-0 flex-1 overflow-hidden;
-  background: #0f172a;
+  background: var(--text);
 }
 
 .totp-scan-video {
@@ -1030,7 +1024,7 @@ select.input.duplicate-mode-toolbar-select {
 .totp-scan-footer {
   @apply shrink-0 px-4 py-3;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.74), #0f172a);
+  background: rgba(15, 23, 42, 0.82);
 }
 
 .totp-scan-status {
@@ -1073,7 +1067,7 @@ select.input.duplicate-mode-toolbar-select {
 
 .detail-folder-line {
   @apply mt-1 flex min-w-0 items-center gap-1.5 text-xs font-semibold;
-  color: #667085;
+  color: var(--muted);
 }
 
 .detail-folder-line span {
@@ -1090,10 +1084,10 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .totp-code-row {
-  @apply grid w-full min-w-0 max-w-none items-center gap-2.5 rounded-xl border p-3;
+  @apply grid w-full min-w-0 max-w-none items-center gap-2.5 rounded-[6px] border p-3;
   grid-template-columns: minmax(0, 1fr) auto;
-  border-color: #e2e8f0;
-  background: #f8fafc;
+  border-color: var(--line);
+  background: var(--panel-subtle);
   transition:
     transform 220ms var(--ease-out-soft),
     box-shadow var(--dur-fast) var(--ease-out-soft),
@@ -1125,13 +1119,13 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .totp-code-name {
-  @apply text-[15px] font-bold;
-  color: #0f172a;
+  @apply text-[15px] font-semibold;
+  color: var(--text);
 }
 
 .totp-code-username {
   @apply mt-0.5 text-[13px];
-  color: #64748b;
+  color: var(--muted);
 }
 
 .totp-copy-btn {
@@ -1168,7 +1162,7 @@ select.input.duplicate-mode-toolbar-select {
 
 .attachment-row {
   @apply flex items-center justify-between gap-2.5 py-2.5;
-  border-bottom: 1px solid #ecf0f5;
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .attachment-row:last-child {
@@ -1185,7 +1179,7 @@ select.input.duplicate-mode-toolbar-select {
 
 .attachment-text span {
   @apply text-xs;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .attachment-row.is-removed {
@@ -1197,8 +1191,8 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .attachment-queue-title {
-  @apply px-0 pb-0.5 pt-2 text-xs font-bold;
-  color: #64748b;
+  @apply px-0 pb-0.5 pt-2 text-xs font-semibold;
+  color: var(--muted);
 }
 
 .boolean-text {
@@ -1207,7 +1201,7 @@ select.input.duplicate-mode-toolbar-select {
 
 .custom-field-card {
   @apply grid gap-2 py-2.5;
-  border-bottom: 1px solid #ecf0f5;
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .custom-field-card:last-child {
@@ -1216,8 +1210,8 @@ select.input.duplicate-mode-toolbar-select {
 }
 
 .custom-field-label {
-  @apply block overflow-hidden text-ellipsis whitespace-nowrap text-xs font-bold leading-[1.2];
-  color: #64748b;
+  @apply block overflow-hidden text-ellipsis whitespace-nowrap text-xs font-semibold leading-[1.2];
+  color: var(--muted);
 }
 
 .custom-field-body {
@@ -1248,7 +1242,7 @@ select.input.duplicate-mode-toolbar-select {
 
 .custom-field-check span {
   @apply text-sm font-semibold;
-  color: #334155;
+  color: var(--muted-strong);
 }
 
 .custom-field-remove {
@@ -1259,12 +1253,12 @@ select.input.duplicate-mode-toolbar-select {
   @apply min-h-12 whitespace-pre-wrap;
   overflow-wrap: anywhere;
   word-break: break-word;
-  color: #334155;
+  color: var(--muted-strong);
 }
 
 .empty {
   @apply grid min-h-[120px] place-items-center;
-  color: #667085;
+  color: var(--muted);
 }
 
 .vault-error-state {
