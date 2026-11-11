@@ -27,7 +27,6 @@ import {
   persistRemoteBrowserState,
 } from '@/lib/backup-center';
 import { BACKUP_PROGRESS_EVENT, type BackupProgressDetail, type BackupProgressOperation } from '@/lib/backup-restore-progress';
-import { RECOMMENDED_PROVIDERS, type RecommendedProvider } from '@/lib/backup-recommendations';
 import { t } from '@/lib/i18n';
 import { BackupDestinationDetail } from './backup-center/BackupDestinationDetail';
 import { BackupDestinationSidebar } from './backup-center/BackupDestinationSidebar';
@@ -214,7 +213,6 @@ export default function BackupCenterPage(props: BackupCenterPageProps) {
   const [savedSettings, setSavedSettings] = useState<AdminBackupSettings | null>(null);
   const [settings, setSettings] = useState<AdminBackupSettings>(createDraftBackupSettings);
   const [selectedDestinationId, setSelectedDestinationId] = useState<string | null>(persistedRemoteState.selectedDestinationId);
-  const [selectedProviderId, setSelectedProviderId] = useState<string | null>(null);
   const [remoteBrowserCache, setRemoteBrowserCache] = useState<Record<string, RemoteBackupBrowserResponse>>(persistedRemoteState.cache);
   const [remoteBrowserPathByDestination, setRemoteBrowserPathByDestination] = useState<Record<string, string>>(persistedRemoteState.pathByDestination);
   const [remoteBrowserPageByKey, setRemoteBrowserPageByKey] = useState<Record<string, number>>(persistedRemoteState.pageByKey);
@@ -237,9 +235,6 @@ export default function BackupCenterPage(props: BackupCenterPageProps) {
     currentRemoteBrowserPage * REMOTE_BROWSER_ITEMS_PER_PAGE
   );
 
-  const selectedRecommendedProvider = RECOMMENDED_PROVIDERS.find((provider) => provider.id === selectedProviderId) || null;
-  const recommendedWebDavProviders = RECOMMENDED_PROVIDERS.filter((provider) => provider.protocol === 'webdav');
-  const recommendedS3Providers = RECOMMENDED_PROVIDERS.filter((provider) => provider.protocol === 's3');
   const canRunSelectedDestination = !!selectedDestination && selectedDestinationIsSaved;
   const canBrowseSelectedDestination = !!savedSelectedDestination;
   const backupPasswordPromptTitle =
@@ -522,7 +517,6 @@ export default function BackupCenterPage(props: BackupCenterPageProps) {
   function handleAddDestination(type: BackupDestinationType) {
     updateSettings((current) => {
       const nextDestination = createDraftDestinationRecord(type, current.destinations.filter((destination) => destination.type === type).length + 1);
-      setSelectedProviderId(null);
       setSelectedDestinationId(nextDestination.id);
       return {
         ...current,
@@ -957,13 +951,9 @@ export default function BackupCenterPage(props: BackupCenterPageProps) {
         exporting={exporting}
         importing={importing}
         exportIncludeAttachments={exportIncludeAttachments}
-        selectedProviderId={selectedProviderId}
-        recommendedWebDavProviders={recommendedWebDavProviders}
-        recommendedS3Providers={recommendedS3Providers}
         onExport={() => void handleExport()}
         onImport={() => fileInputRef.current?.click()}
         onExportIncludeAttachmentsChange={setExportIncludeAttachments}
-        onSelectProvider={(providerId) => setSelectedProviderId(providerId)}
       />
 
       <BackupDestinationSidebar
@@ -972,7 +962,6 @@ export default function BackupCenterPage(props: BackupCenterPageProps) {
         disableWhileBusy={disableWhileBusy}
         showAddChooser={showAddChooser}
         onSelectDestination={(destinationId) => {
-          setSelectedProviderId(null);
           setSelectedDestinationId(destinationId);
         }}
         onToggleAddChooser={() => setShowAddChooser((current) => !current)}
@@ -980,7 +969,6 @@ export default function BackupCenterPage(props: BackupCenterPageProps) {
       />
 
       <BackupDestinationDetail
-        selectedRecommendedProvider={selectedRecommendedProvider}
         selectedDestination={selectedDestination}
         selectedDestinationIsSaved={selectedDestinationIsSaved}
         canRunSelectedDestination={canRunSelectedDestination}

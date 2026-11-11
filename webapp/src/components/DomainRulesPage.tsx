@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { Check, ChevronDown, ChevronUp, ExternalLink, Pencil, Plus, RefreshCw, Save, Trash2, X } from 'lucide-preact';
+import { Check, ChevronDown, ChevronUp, Pencil, Plus, RefreshCw, Save, Trash2, X } from 'lucide-preact';
 import LoadingState from '@/components/LoadingState';
 import { t } from '@/lib/i18n';
 import type { CustomEquivalentDomain, DomainRules } from '@/lib/types';
 import { normalizeEquivalentDomain } from '@shared/domain-normalize';
-
-const CUSTOM_GLOBAL_DOMAINS_PR_URL = 'https://github.com/shuaiplus/nodewarden/edit/main/src/static/global_domains.custom.json';
 
 interface DomainRulesPageProps {
   rules: DomainRules | null;
@@ -350,10 +348,6 @@ export default function DomainRulesPage(props: DomainRulesPageProps) {
             <RefreshCw size={14} className="btn-icon" />
             {t('txt_sync')}
           </button>
-          <a className="btn btn-secondary" href={CUSTOM_GLOBAL_DOMAINS_PR_URL} target="_blank" rel="noreferrer">
-            <ExternalLink size={14} className="btn-icon" />
-            {t('txt_submit_pr')}
-          </a>
         </div>
       </div>
 

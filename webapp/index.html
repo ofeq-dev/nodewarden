@@ -16,17 +16,17 @@
     base-uri 'self';
   " />
 
-    <link rel="icon" type="image/svg+xml" href="/nodewarden-logo-bg.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#f4f5f3" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="NodeWarden" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Vault" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-    <title>NodeWarden</title>
+    <title>Vault</title>
     <style>
       html,
       body,
@@ -36,9 +36,9 @@
 
       body {
         margin: 0;
-        background: #eef4ff;
-        color: #0f172a;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f4f5f3;
+        color: #191c1a;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       }
 
       .boot-screen {
@@ -50,49 +50,55 @@
       }
 
       .boot-card {
-        width: min(420px, 100%);
+        width: min(360px, 100%);
         display: grid;
-        gap: 14px;
+        gap: 16px;
         justify-items: center;
         padding: 28px;
-        border: 1px solid rgba(148, 163, 184, 0.35);
-        border-radius: 22px;
-        background: rgba(255, 255, 255, 0.82);
-        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.10);
+        border: 1px solid #dde1dc;
+        border-radius: 8px;
+        background: #ffffff;
       }
 
-      .boot-logo {
-        width: 74px;
-        height: 58px;
-        object-fit: contain;
+      .boot-title {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
       }
 
       .boot-line {
-        width: 72%;
-        height: 12px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, #dbeafe, #bfdbfe, #dbeafe);
-        background-size: 180% 100%;
-        animation: boot-shimmer 1.2s ease-in-out infinite;
+        width: 100%;
+        height: 3px;
+        border-radius: 2px;
+        background: #e8ebe6;
+        overflow: hidden;
       }
 
-      .boot-line.short {
-        width: 46%;
+      .boot-line::after {
+        content: "";
+        display: block;
+        width: 40%;
+        height: 100%;
+        background: #2b5a4c;
+        animation: boot-slide 1.1s ease-in-out infinite;
       }
 
-      @keyframes boot-shimmer {
-        0% { background-position: 180% 0; }
-        100% { background-position: -180% 0; }
+      @keyframes boot-slide {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(350%); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .boot-line::after { animation: none; width: 100%; }
       }
     </style>
   </head>
   <body>
     <div id="root">
       <div class="boot-screen">
-        <div class="boot-card" aria-label="Loading NodeWarden">
-          <img class="boot-logo" src="/nodewarden-logo.svg" alt="" />
+        <div class="boot-card" aria-label="Loading Vault">
+          <div class="boot-title">Vault</div>
           <div class="boot-line"></div>
-          <div class="boot-line short"></div>
         </div>
       </div>
     </div>

@@ -1941,18 +1941,18 @@ export default function App() {
   const sidebarToggleTitle = location === '/vault' ? t('txt_folders') : t('txt_type');
   const demoDomainRules = useMemo<DomainRules>(() => ({
     equivalentDomains: [
-      ['nodewarden.example', 'nw.example'],
-      ['staging.nodewarden.example', 'preview.nodewarden.example'],
+      ['vault.example', 'nw.example'],
+      ['staging.vault.example', 'preview.vault.example'],
     ],
     customEquivalentDomains: [
-      { id: 'demo-custom-1', domains: ['nodewarden.example', 'nw.example'], excluded: false },
-      { id: 'demo-custom-2', domains: ['staging.nodewarden.example', 'preview.nodewarden.example'], excluded: false },
+      { id: 'demo-custom-1', domains: ['vault.example', 'nw.example'], excluded: false },
+      { id: 'demo-custom-2', domains: ['staging.vault.example', 'preview.vault.example'], excluded: false },
     ],
     globalEquivalentDomains: [
       { type: 0, domains: ['youtube.com', 'google.com', 'gmail.com'], excluded: false },
       { type: 1, domains: ['apple.com', 'icloud.com'], excluded: false },
       { type: 10, domains: ['microsoft.com', 'office.com', 'xbox.com'], excluded: true },
-      { type: -10001, domains: ['nodewarden.example', 'nw.example'], excluded: false },
+      { type: -10001, domains: ['vault.example', 'nw.example'], excluded: false },
     ],
     object: 'domains',
   }), []);
